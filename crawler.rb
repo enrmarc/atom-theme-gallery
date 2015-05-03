@@ -17,17 +17,21 @@ themes   = []
 
       name = card.css('.card-name a')
       desc = card.css('.card-description')
+      author = card.css('.author')
       link = name[0]['href']
       img = (Nokogiri::HTML open "#{ATOM_URL}#{link}").css('.markdown-body img').first
 
       themes.push({
          :name => name.text,
          :desc => desc.text,
+         :author => author.text
          :link => link,
          :img  => img && img['src']
       })
       i += 1
    end
+
+   puts themes.length
 end
 
 puts themes.to_json
