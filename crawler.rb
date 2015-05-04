@@ -22,16 +22,14 @@ themes   = []
       img = (Nokogiri::HTML open "#{ATOM_URL}#{link}").css('.markdown-body img').first
 
       themes.push({
-         :name => name.text,
-         :desc => desc.text,
-         :author => author.text
+         :name => name.text.strip.capitalize,
+         :desc => desc.text.strip,
+         :author => author.text.strip,
          :link => link,
          :img  => img && img['src']
       })
       i += 1
    end
-
-   puts themes.length
 end
 
 puts themes.to_json
