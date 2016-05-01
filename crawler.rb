@@ -5,7 +5,7 @@ require 'open-uri'
 require 'json'
 
 ATOM_URL = 'https://atom.io'
-PAGES    = 20
+PAGES    = 41
 themes   = []
 
 1.upto(PAGES) do |page|
