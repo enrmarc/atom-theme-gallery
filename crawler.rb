@@ -5,7 +5,8 @@ require 'open-uri'
 require 'json'
 
 ATOM_URL = 'https://atom.io'
-PAGES    = 41
+PAGES    = 100
+SKIPPED_IMGS = ['img.shields.io', 'pledgie.com', 'travis-ci.org', 'badge.waffle.io']
 themes   = []
 
 1.upto(PAGES) do |page|
@@ -19,14 +20,17 @@ themes   = []
       desc = card.css('.card-description')
       author = card.css('.author')
       link = name[0]['href']
-      img = (Nokogiri::HTML open "#{ATOM_URL}#{link}").css('.markdown-body img').first
+      imgs = (Nokogiri::HTML open "#{ATOM_URL}#{link}").css('.markdown-body img')
+      screenshot = imgs.select { |n|
+          !SKIPPED_IMGS.any? { |skip| n['data-canonical-src']&.include? skip }
+      }.first
 
       themes.push({
          :name => name.text.strip.capitalize,
          :desc => desc.text.strip,
          :author => author.text.strip,
          :link => link,
-         :img  => img && img['src']
+         :img  => screenshot && screenshot['src']
       })
       i += 1
    end
