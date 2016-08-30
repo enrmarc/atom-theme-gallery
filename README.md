@@ -12,4 +12,4 @@ A theme gallery extracted from [atom.io/themes](https://atom.io/themes)
 
 ### TODO
 
-Find a way to extract a image that represents a screenshot.
+~~Find a way to extract an image that represents a screenshot (if any exists).~~
